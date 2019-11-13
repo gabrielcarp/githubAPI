@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">GitHubUserData</string>
+    <string name="user_search">Enter user name</string>
+    <string name="user_error_subtitle">An error occured while trying to fetch user info.</string>
+    <string name="error_retry">Retry</string>
+    <string name="retrieve_user_data">Retrieve user data</string>
+    <string name="search_for_user">Search for user</string>
+    <string name="user_avatar_description">Image Placeholder</string>
+    <string name="location_header">Located at %1$s</string>
+    <string name="username_header">Username: %1$s</string>
+    <string name="login_header">login %1$s</string>
+    <string name="html_header">Html URL: %1$s</string>
+    <string name="blog_header">Blog: %1$s</string>
+    <string name="repos_count_header">Public Repos count of %1$s</string>
+    <string name="followers_header">Followers count of %1$s</string>
+    <string name="created_date_header">Created on %1$s</string>
+    <string name="id_header">Unique Id: %1$s</string>
+    <string name="email_header">Contact Info: %1$s</string>
+    <string name="bio_header">Bio: %1$s</string>
+</resources>
