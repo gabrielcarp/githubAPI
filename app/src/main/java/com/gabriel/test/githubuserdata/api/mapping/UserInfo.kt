@@ -1,6 +1,5 @@
 package com.gabriel.test.githubuserdata.api.mapping
 
-
 import com.google.gson.annotations.SerializedName
 
 data class UserInfo(

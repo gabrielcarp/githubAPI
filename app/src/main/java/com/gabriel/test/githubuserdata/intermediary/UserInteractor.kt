@@ -8,6 +8,7 @@ import com.gabriel.test.githubuserdata.intermediary.entities.UserData
 
 interface UserInteractor {
     var onStateChanged: (State) -> Unit
+    fun query(name: String)
 
     sealed class State {
         class Content(val user: UserData) : State()
@@ -40,7 +41,7 @@ class UserInteractorImpl(
         loadData()
     }
 
-    private fun loadData() {
+    fun loadData() {
         state = UserInteractor.State.Loading
         repository.user
             .onSuccess { info: UserData? ->
@@ -62,5 +63,10 @@ class UserInteractorImpl(
                     }
                 )
             }
+    }
+
+    override fun query(name: String) {
+        repository.name = name
+        loadData()
     }
 }

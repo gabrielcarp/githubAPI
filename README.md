@@ -17,7 +17,7 @@ on each step, without a strict enforcement of how the API provides it to be used
 The project should be compiled and can run as any android project.
 
 TODO
-fix issue with user name input and retrieval
+fix activity forgetting last name
 add unit testing
 add flow tests
 add user name search

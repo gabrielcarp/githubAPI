@@ -1,6 +1,5 @@
 package com.gabriel.test.githubuserdata.api.mapping
 
-
 import android.service.autofill.UserData
 import com.google.gson.annotations.SerializedName
 

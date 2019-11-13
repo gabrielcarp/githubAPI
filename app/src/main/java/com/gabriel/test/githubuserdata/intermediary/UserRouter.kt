@@ -11,7 +11,7 @@ interface UserRouter {
     fun onItemSelecte(woeid: String)
 }
 
-class UserRouterImpl(activity: Activity): UserRouter {
+class UserRouterImpl(activity: Activity) : UserRouter {
     override fun onItemSelecte(woeid: String) {
 //        val activity = activityRef.get()
 //        if (activity != null) {

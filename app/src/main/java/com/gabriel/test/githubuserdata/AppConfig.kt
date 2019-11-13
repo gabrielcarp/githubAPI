@@ -12,7 +12,8 @@ object AppConfig {
         "pjhyett",
         "wycats",
         "ezmobius",
-        "defunkt")
+        "defunkt"
+    )
 
     private val httpClient by lazy { initHttpClient() }
     private val githubAPI by lazy { initGithubAPI(httpClient) }
@@ -27,14 +28,7 @@ object AppConfig {
             activity = activity,
             userRepository = UserRepository(
                 githubAPI = githubAPI,
-                userNameValue = woeIds.random())
-        )
-
-    fun searchForName(name:String, activity: AppCompatActivity) =
-        UserConfig(
-            activity = activity,
-            userRepository = UserRepository(
-                githubAPI = githubAPI,
-                userNameValue = name)
+                userNameValue = woeIds.random()
+            )
         )
 }

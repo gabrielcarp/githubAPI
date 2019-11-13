@@ -13,7 +13,7 @@ class UserRepository(
     userNameValue: String
 ) {
 
-    private val name = userNameValue
+    var name = userNameValue
     /**
      * Returns a Promise that will at some point return the desired user.
      */

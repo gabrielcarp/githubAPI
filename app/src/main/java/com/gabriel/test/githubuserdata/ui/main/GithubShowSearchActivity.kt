@@ -1,5 +1,4 @@
 package com.gabriel.test.githubuserdata.ui.main
-
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,14 +17,9 @@ class GithubShowSearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        retrieveUser.setOnClickListener{
+        retrieveUser.setOnClickListener {
             if (!searchUser.text.isNullOrBlank()) {
-                val activity = this
-
-                   userConfig = AppConfig.searchForName(
-                        name = searchUser.text.toString(),
-                        activity = activity
-                    )
+                userConfig.loadData(searchUser.text.toString())
             }
         }
 
@@ -66,6 +60,7 @@ class GithubShowSearchActivity : AppCompatActivity() {
         sortVisibility(userConfig)
         textLocation.text = getString(R.string.location_header, userConfig.location)
         userName.text = getString(R.string.username_header, userConfig.name)
+        searchUser.setText(userConfig.name)
         textLogin.text = getString(R.string.login_header, userConfig.login)
         if (userConfig.image.isNullOrBlank()) {
             imageAvatar.setImageURI(Uri.parse(userConfig.image))
