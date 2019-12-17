@@ -1,7 +1,11 @@
 package com.gabriel.test.githubuserdata.ui.main
+
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.Glide
 import com.gabriel.test.githubuserdata.AppConfig
 import com.gabriel.test.githubuserdata.R
@@ -18,8 +22,15 @@ class GithubShowSearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         retrieveUser.setOnClickListener {
-            if (!searchUser.text.isNullOrBlank()) {
-                userConfig.loadData(searchUser.text.toString())
+            handleUserSearch()
+        }
+        searchUser.setOnEditorActionListener { v, actionId, event ->
+            return@setOnEditorActionListener when (actionId) {
+                EditorInfo.IME_ACTION_SEARCH -> {
+                    handleUserSearch()
+                    true
+                }
+                else -> false
             }
         }
 
@@ -54,6 +65,18 @@ class GithubShowSearchActivity : AppCompatActivity() {
 //                    AppConfig.searchForName(name = searchUser.text.toString(), activity = this)
 //            }
 //        }
+    }
+
+    private fun handleUserSearch() {
+        if (!searchUser.text.isNullOrBlank()) {
+            userConfig.loadData(searchUser.text.toString())
+            if (searchUser.hasFocus()) {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(searchUser, InputMethodManager.HIDE_IMPLICIT_ONLY)
+            }
+            searchUser.text.clear()
+            searchUser.clearFocus()
+        }
     }
 
     private fun fillUserInfo(userConfig: UserUIConfig) {
@@ -103,4 +126,3 @@ class GithubShowSearchActivity : AppCompatActivity() {
         textBio.visibility = if (userConfig.bio.isNullOrBlank()) View.GONE else View.VISIBLE
     }
 }
-
