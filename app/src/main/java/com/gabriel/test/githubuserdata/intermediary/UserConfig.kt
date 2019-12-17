@@ -25,8 +25,8 @@ class UserConfig(
      * Handles business logic to manipulate model objects and carry out tasks for
      * the user use case.
      */
-    var interactor: UserInteractor = run {
-        val interactor = UserInteractorImpl(
+    var viewModel: UserViewModel = run {
+        val interactor = UserViewModelImpl(
             repository = userRepository,
             router = router
         )
@@ -35,14 +35,14 @@ class UserConfig(
     }
 
     fun loadData(name: String) {
-        interactor.query(name)
+        viewModel.query(name)
     }
 
     /**
      * Converts data states from the Interactor into view states that are ready to be presented on
      * screen.
      */
-    val presenter: UserPresenter = UserPresenterImpl(
-        interactor = interactor
+    val controller: UserController = UserControllerImpl(
+        viewModel = viewModel
     )
 }

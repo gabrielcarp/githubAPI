@@ -1,6 +1,6 @@
 package com.gabriel.test.githubuserdata.intermediary
 
-interface UserPresenter {
+interface UserController {
     var onStateChanged: (State) -> Unit
 
     sealed class State {
@@ -10,15 +10,15 @@ interface UserPresenter {
     }
 }
 
-class UserPresenterImpl(interactor: UserInteractor) : UserPresenter {
+class UserControllerImpl(viewModel: UserViewModel) : UserController {
 
-    override var onStateChanged: (UserPresenter.State) -> Unit = {}
+    override var onStateChanged: (UserController.State) -> Unit = {}
         set(value) {
             field = value
             onStateChanged(state)
         }
 
-    private var state: UserPresenter.State = UserPresenter.State.Loading
+    private var state: UserController.State = UserController.State.Loading
         set(value) {
             if (field != value) {
                 field = value
@@ -27,11 +27,11 @@ class UserPresenterImpl(interactor: UserInteractor) : UserPresenter {
         }
 
     init {
-        interactor.onStateChanged = { state ->
+        viewModel.onStateChanged = { state ->
             this.state = when (state) {
-                is UserInteractor.State.Content -> state.getData()
-                is UserInteractor.State.Loading -> UserPresenter.State.Loading
-                is UserInteractor.State.Error -> UserPresenter.State.Error(
+                is UserViewModel.State.Content -> state.getData()
+                is UserViewModel.State.Loading -> UserController.State.Loading
+                is UserViewModel.State.Error -> UserController.State.Error(
                     onRetry = { state.onRetry() }
                 )
             }
@@ -39,7 +39,7 @@ class UserPresenterImpl(interactor: UserInteractor) : UserPresenter {
     }
 }
 
-private fun UserInteractor.State.Content.getData(): UserPresenter.State.Content {
+private fun UserViewModel.State.Content.getData(): UserController.State.Content {
     val uiConfig = UserUIConfig(
         name = user.name,
         location = user.location,
@@ -54,7 +54,7 @@ private fun UserInteractor.State.Content.getData(): UserPresenter.State.Content 
         email = user.email,
         bio = user.bio
     )
-    return UserPresenter.State.Content(uiConfig = uiConfig)
+    return UserController.State.Content(uiConfig = uiConfig)
 }
 
 //TODO reuse for search

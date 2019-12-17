@@ -5,7 +5,7 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.gabriel.test.githubuserdata.AppConfig
 import com.gabriel.test.githubuserdata.R
-import com.gabriel.test.githubuserdata.intermediary.UserPresenter
+import com.gabriel.test.githubuserdata.intermediary.UserController
 import com.gabriel.test.githubuserdata.intermediary.UserUIConfig
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -23,20 +23,20 @@ class GithubShowSearchActivity : AppCompatActivity() {
             }
         }
 
-        userConfig.presenter.onStateChanged = { state ->
+        userConfig.controller.onStateChanged = { state ->
             when (state) {
-                is UserPresenter.State.Content -> {
+                is UserController.State.Content -> {
                     fillUserInfo(state.uiConfig)
                     containerView.visibility = View.VISIBLE
                     loadingView.visibility = View.GONE
                     errorView.visibility = View.GONE
                 }
-                is UserPresenter.State.Loading -> {
+                is UserController.State.Loading -> {
                     containerView.visibility = View.GONE
                     loadingView.visibility = View.VISIBLE
                     errorView.visibility = View.GONE
                 }
-                is UserPresenter.State.Error -> {
+                is UserController.State.Error -> {
                     containerView.visibility = View.GONE
                     loadingView.visibility = View.GONE
                     errorView.visibility = View.VISIBLE

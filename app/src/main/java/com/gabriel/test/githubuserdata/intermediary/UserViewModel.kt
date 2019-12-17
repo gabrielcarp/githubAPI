@@ -6,7 +6,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.gabriel.test.githubuserdata.api.UserRepository
 import com.gabriel.test.githubuserdata.intermediary.entities.UserData
 
-interface UserInteractor {
+interface UserViewModel {
     var onStateChanged: (State) -> Unit
     fun query(name: String)
 
@@ -17,18 +17,18 @@ interface UserInteractor {
     }
 }
 
-class UserInteractorImpl(
+class UserViewModelImpl(
     private val router: UserRouter,
     private val repository: UserRepository
-) : UserInteractor, LifecycleObserver {
+) : UserViewModel, LifecycleObserver {
 
-    override var onStateChanged: (UserInteractor.State) -> Unit = {}
+    override var onStateChanged: (UserViewModel.State) -> Unit = {}
         set(value) {
             field = value
             onStateChanged(state)
         }
 
-    private var state: UserInteractor.State = UserInteractor.State.Loading
+    private var state: UserViewModel.State = UserViewModel.State.Loading
         set(value) {
             if (field != value) {
                 field = value
@@ -42,22 +42,22 @@ class UserInteractorImpl(
     }
 
     fun loadData() {
-        state = UserInteractor.State.Loading
+        state = UserViewModel.State.Loading
         repository.user
             .onSuccess { info: UserData? ->
                 state = if (info == null) {
-                    UserInteractor.State.Error(
+                    UserViewModel.State.Error(
                         onRetry = {
                             loadData()
                         })
                 } else {
-                    UserInteractor.State.Content(
+                    UserViewModel.State.Content(
                         user = info
                     )
                 }
             }
             .onError {
-                state = UserInteractor.State.Error(
+                state = UserViewModel.State.Error(
                     onRetry = {
                         loadData()
                     }
