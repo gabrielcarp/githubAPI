@@ -1,14 +1,14 @@
 package com.gabriel.test.githubuserdata.ui.main
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
 import com.gabriel.test.githubuserdata.AppConfig
 import com.gabriel.test.githubuserdata.R
 import com.gabriel.test.githubuserdata.intermediary.UserPresenter
 import com.gabriel.test.githubuserdata.intermediary.UserUIConfig
-import kotlinx.android.synthetic.main.main_activity.*
-import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 class GithubShowSearchActivity : AppCompatActivity() {
 
@@ -16,7 +16,7 @@ class GithubShowSearchActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.activity_main)
         retrieveUser.setOnClickListener {
             if (!searchUser.text.isNullOrBlank()) {
                 userConfig.loadData(searchUser.text.toString())
@@ -62,8 +62,15 @@ class GithubShowSearchActivity : AppCompatActivity() {
         userName.text = getString(R.string.username_header, userConfig.name)
         searchUser.setText(userConfig.name)
         textLogin.text = getString(R.string.login_header, userConfig.login)
-        if (userConfig.image.isNullOrBlank()) {
-            imageAvatar.setImageURI(Uri.parse(userConfig.image))
+        if (!userConfig.image.isNullOrBlank()) {
+
+            Glide
+                .with(this)
+                .load(userConfig.image)
+                .circleCrop()
+                .placeholder(android.R.drawable.ic_menu_upload)
+                .into(imageAvatar)
+//            imageAvatar.setImageURI(Uri.parse(userConfig.image))
         }
         textHtmlUrl.text = getString(R.string.html_header, userConfig.htmlUrl)
         textBlog.text = getString(R.string.blog_header, userConfig.blog)

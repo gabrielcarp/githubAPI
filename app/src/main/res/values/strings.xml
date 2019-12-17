@@ -6,6 +6,7 @@
     <string name="retrieve_user_data">Retrieve user data</string>
     <string name="search_for_user">Search for user</string>
     <string name="user_avatar_description">Image Placeholder</string>
+    <string name="error_description">Error loading indicator</string>
     <string name="location_header">Located at %1$s</string>
     <string name="username_header">Username: %1$s</string>
     <string name="login_header">login %1$s</string>
